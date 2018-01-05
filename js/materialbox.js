@@ -25,8 +25,6 @@
 
       super(Materialbox, el, options);
 
-      this.el = el;
-      this.$el = $(el);
       this.el.M_Materialbox = this;
 
       /**
@@ -91,7 +89,7 @@
     /**
      * Remove Event Handlers
      */
-    removeEventHandlers() {
+    _removeEventHandlers() {
       this.el.removeEventListener('click', this._handleMaterialboxClickBound);
     }
 

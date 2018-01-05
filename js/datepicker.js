@@ -89,8 +89,6 @@
     constructor(el, options) {
       super(Datepicker, el, options);
 
-      this.el = el;
-      this.$el = $(el);
       this.el.M_Datepicker = this;
 
       this.options = $.extend({}, Datepicker.defaults, options);
@@ -185,7 +183,10 @@
      * Teardown component
      */
     destroy() {
-
+      this._removeEventHandlers();
+      this.modal.destroy();
+      $(this.modalEl).remove();
+      this.el.M_Datepicker = undefined;
     }
 
     _insertHTMLIntoDOM() {
@@ -222,9 +223,9 @@
       let formattedDate = formatArray.map((label) => {
         if (this.formats[label]) {
           return this.formats[label]();
-        } else {
-          return label;
         }
+
+        return label;
       }).join( '' );
       return formattedDate;
     }

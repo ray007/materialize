@@ -27,8 +27,6 @@
     constructor(el, options) {
       super(Timepicker, el, options);
 
-      this.el = el;
-      this.$el = $(el);
       this.el.M_Timepicker = this;
 
       this.options = $.extend({}, Timepicker.defaults, options);
@@ -357,7 +355,7 @@
       // Get the time
 		  let value = ((this.el.value || this.options.defaultTime || '') + '').split(':');
 		  if (this.options.twelveHour && !(typeof value[1] === 'undefined')) {
-			  if (value[1].indexOf("AM") > 0){
+			  if (value[1].toUpperCase().indexOf("AM") > 0){
 				  this.amOrPm = 'AM';
 			  } else {
 				  this.amOrPm = 'PM';
