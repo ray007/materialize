@@ -15,7 +15,7 @@ select {
 
 
 .input-field {
-  select {
+  select:not(.browser-default) {
     display: block;
     position: absolute;
     width: 0;
