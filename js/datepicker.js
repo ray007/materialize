@@ -698,7 +698,7 @@
           return this.options.i18n.monthsShort[this.date.getMonth()];
         },
         mmmm: () => {
-          return this.options.i18n.monthsShort[this.date.getMonth()];
+          return this.options.i18n.months[this.date.getMonth()];
         },
         yy: () => {
           return ('' + this.date.getFullYear()).slice(2);
