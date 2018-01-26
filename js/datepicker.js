@@ -62,8 +62,8 @@
       nextMonth     : '›',
       months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
       monthsShort   : ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
       weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
       weekdaysAbbrev : ['S','M','T','W','T','F','S']
     },
 
@@ -621,8 +621,8 @@
       // Init Materialize Select
       let yearSelect = this.calendarEl.querySelector('.pika-select-year');
       let monthSelect = this.calendarEl.querySelector('.pika-select-month');
-      M.Select.init(yearSelect, {classes: 'select-year'});
-      M.Select.init(monthSelect, {classes: 'select-month'});
+      M.Select.init(yearSelect, {classes: 'select-year', dropdownOptions: {container: document.body, constrainWidth: false}});
+      M.Select.init(monthSelect, {classes: 'select-month', dropdownOptions: {container: document.body, constrainWidth: false}});
 
       // Add change handlers for select
       yearSelect.addEventListener('change', this._handleYearChange.bind(this));
