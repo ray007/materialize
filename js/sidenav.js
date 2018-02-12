@@ -217,7 +217,7 @@
      */
     _handleDragTargetDrag(e) {
       // Check if draggable
-      if (!this.options.draggable) {
+      if (!this.options.draggable || this._isCurrentlyFixed()) {
         return;
       }
 
@@ -266,11 +266,6 @@
      * Handle Drag Target Release
      */
     _handleDragTargetRelease() {
-      // Check if draggable
-      if (!this.options.draggable) {
-        return;
-      }
-
       if (this.isDragged) {
         if (this.percentOpen > .5) {
           this.open();
@@ -288,6 +283,10 @@
      */
     _handleCloseDrag(e) {
       if (this.isOpen) {
+        // Check if draggable
+        if (!this.options.draggable || this._isCurrentlyFixed()) {
+          return;
+        }
 
         // If not being dragged, set initial drag start variables
         if (!this.isDragged) {
@@ -374,9 +373,13 @@
     }
 
     _setupFixed() {
-      if (this.isFixed && window.innerWidth > 992) {
+      if (this._isCurrentlyFixed()) {
         this.open();
       }
+    }
+
+    _isCurrentlyFixed() {
+      return this.isFixed && window.innerWidth > 992;
     }
 
     _createDragTarget() {
@@ -409,7 +412,7 @@
       }
 
       // Handle fixed Sidenav
-      if (this.isFixed && window.innerWidth > 992) {
+      if (this._isCurrentlyFixed()) {
         anim.remove(this.el);
         anim({
           targets: this.el,
@@ -443,7 +446,7 @@
       }
 
       // Handle fixed Sidenav
-      if (this.isFixed && window.innerWidth > 992) {
+      if (this._isCurrentlyFixed()) {
         let transformX = this.options.edge === 'left' ? '-105%' : '105%';
         this.el.style.transform = `translateX(${transformX})`;
 

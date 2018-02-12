@@ -616,13 +616,23 @@
           this.render(this.calendars[c].year, this.calendars[c].month, randId);
       }
 
+      // Destroy Materialize Select
+      let oldYearSelect = this.calendarEl.querySelector('.pika-select-year');
+      if (oldYearSelect) {
+        M.FormSelect.getInstance(oldYearSelect).destroy();
+      }
+      let oldMonthSelect = this.calendarEl.querySelector('.pika-select-month');
+      if (oldMonthSelect) {
+        M.FormSelect.getInstance(oldMonthSelect).destroy();
+      }
+
       this.calendarEl.innerHTML = html;
 
       // Init Materialize Select
       let yearSelect = this.calendarEl.querySelector('.pika-select-year');
       let monthSelect = this.calendarEl.querySelector('.pika-select-month');
-      M.Select.init(yearSelect, {classes: 'select-year', dropdownOptions: {container: document.body, constrainWidth: false}});
-      M.Select.init(monthSelect, {classes: 'select-month', dropdownOptions: {container: document.body, constrainWidth: false}});
+      M.FormSelect.init(yearSelect, {classes: 'select-year', dropdownOptions: {container: document.body, constrainWidth: false}});
+      M.FormSelect.init(monthSelect, {classes: 'select-month', dropdownOptions: {container: document.body, constrainWidth: false}});
 
       // Add change handlers for select
       yearSelect.addEventListener('change', this._handleYearChange.bind(this));
