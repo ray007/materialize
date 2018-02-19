@@ -58,10 +58,7 @@
       this.$overlay = $('<div class="modal-overlay"></div>');
       this.fixedX = !!(el.style.left || el.style.right);
 
-      Modal._increment++;
       Modal._count++;
-      this.$overlay[0].style.zIndex = 1000 + Modal._increment * 2;
-      this.el.style.zIndex = 1000 + Modal._increment * 2 + 1;
       this._setupEventHandlers();
     }
 
@@ -279,6 +276,11 @@
       }
 
       this.isOpen = true;
+      Modal._modalsOpen++;
+
+      // Set Z-Index based on number of currently open modals
+      this.$overlay[0].style.zIndex = 1000 + Modal._modalsOpen * 2;
+      this.el.style.zIndex = 1000 + Modal._modalsOpen * 2 + 1;
 
       // Set opening trigger, undefined indicates modal was opened by javascript
       this._openingTrigger = !!$trigger ? $trigger[0] : undefined;
@@ -312,6 +314,7 @@
       }
 
       this.isOpen = false;
+      Modal._modalsOpen--;
 
       // Call onCloseStart callback
       if (typeof(this.options.onCloseStart) === 'function') {
@@ -321,7 +324,7 @@
       this.el.classList.remove('open');
 
       // Enable body scrolling only if there are no more modals open.
-      if (Modal._count === 0) {
+      if (Modal._modalsOpen === 0) {
         document.body.style.overflow = '';
       }
 
@@ -340,7 +343,7 @@
    * @static
    * @memberof Modal
    */
-  Modal._increment = 0;
+  Modal._modalsOpen = 0;
 
   /**
    * @static
